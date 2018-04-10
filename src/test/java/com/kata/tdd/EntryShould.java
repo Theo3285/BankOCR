@@ -8,14 +8,14 @@ import static org.junit.Assert.assertThat;
 public class EntryShould {
 
     @Test
-    public void convert_an_entry() {
+    public void convert_a_basic_entry() {
         Entry entry = new Entry(
                           "    _  _     _  _  _  _  _ \n"
                         + "  | _| _||_||_ |_   ||_||_|\n"
                         + "  ||_  _|  | _||_|  ||_| _|\n"
-                        + "                           ");;
+                        + "                           ");
 
-        assertThat(entry.convertAFullEntry(), is(123456789));
+        assertThat(entry.convert(), is(123456789));
     }
 
     @Test

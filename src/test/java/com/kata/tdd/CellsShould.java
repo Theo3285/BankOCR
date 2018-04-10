@@ -9,7 +9,7 @@ import static org.junit.Assert.*;
 
 public class CellsShould {
     @Test
-    public void return_first_cell_from_entry() {
+    public void return_first_cell_from_entry() throws IllegalArgumentException {
         String entry = new String(
                   "    _  _     _  _  _  _  _ \n"
                         + "  | _| _||_||_ |_   ||_||_|\n"
@@ -17,8 +17,7 @@ public class CellsShould {
                         + "                           ");
 
         List<String> cells = Cells.createFrom(entry);
-        assertThat(cells.get(0),
-                is("     |  |"));
+        assertThat(cells.get(0), is("     |  |"));
     }
 
     @Test

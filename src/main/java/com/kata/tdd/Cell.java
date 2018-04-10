@@ -42,12 +42,12 @@ enum Cell {
         return number;
     }
 
-    public static Cell get(String aCell) throws UnsupportedCellValueException {
+    public static Cell get(String aCell) throws IllegalArgumentException {
         for (Cell cell: values()) {
-            if (cell.value == aCell) {
+            if (aCell.equals(cell.value)) {
                 return cell;
             }
         }
-        throw new UnsupportedCellValueException("Unknown cell value");
+        throw new IllegalArgumentException("Unknown cell with \''" + aCell + "\'' value");
     }
 }

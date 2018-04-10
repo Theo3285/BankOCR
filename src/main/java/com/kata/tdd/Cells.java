@@ -22,6 +22,5 @@ public class Cells {
             endIndex += 3;
         }
         return cells;
-
     }
 }
