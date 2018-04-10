@@ -26,6 +26,7 @@ public class BankOCRShould {
                                   + "  ||_  _|  | _||_|  ||_| _|\n"
                                   + "                           ");
             List<Entry> entries = new ArrayList<Entry>();
+
             entries.add(entry);
 
             return entries;

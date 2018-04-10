@@ -46,4 +46,16 @@ public class CellsShould {
                 is(" _  _| _|"));
     }
 
+    @Test (expected = IllegalArgumentException.class)
+    public void throw_an_exception_when_cell_is_unkown() {
+        String entry = new String(
+                  " _  _  _     _  _  _  _  _ \n"
+                        + "| | _| _||_||_ |_   ||_||_|\n"
+                        + "|_||_  _|  | _||_|  ||_| _|\n"
+                        + "                           ");
+
+        List<String> cells = Cells.createFrom(entry);
+        Cell.get(cells.get(0));
+    }
+
 }
