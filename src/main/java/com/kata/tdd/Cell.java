@@ -1,6 +1,9 @@
 package com.kata.tdd;
 
 enum Cell {
+    ZERO (  " _ " +
+            "| |" +
+            "|_|", "0"),
     ONE (   "   " +
             "  |" +
             "  |", "1"),
@@ -10,7 +13,7 @@ enum Cell {
     THREE ( " _ " +
             " _|" +
             " _|", "3"),
-    FOUR (   "   " +
+    FOUR (  "   " +
             "|_|" +
             "  |", "4"),
     FIVE (  " _ " +

@@ -3,24 +3,33 @@ package com.kata.tdd;
 import java.util.ArrayList;
 import java.util.List;
 
+//This class is responsible for extracting cells from an entry
+
 public class Cells {
 
-    public static List<String> createFrom(String entry) {
+    public static final int NB_CHAR_FOR_AN_ENTRY = 81;
+    public static final int LENGTH = 27;
+    public static final int INC = 3;
+
+    List<String> from(String entry) {
+        if(entry.length() < NB_CHAR_FOR_AN_ENTRY)
+            throw new IllegalArgumentException("Invalid Entry " + entry);
 
         List<String> cells = new ArrayList<String>();
-
         StringBuilder cell = new StringBuilder();
         int beginIndex = 0;
         int endIndex = 3;
         for (int cellIndex = 0; cellIndex < 9; cellIndex++) {
             cell.append(entry.substring(beginIndex, endIndex));
-            cell.append(entry.substring(beginIndex + 28, endIndex + 28));
-            cell.append(entry.substring(beginIndex + (28 * 2), endIndex + (28 * 2)));
+            cell.append(entry.substring(beginIndex + LENGTH, endIndex + LENGTH));
+            cell.append(entry.substring(beginIndex + (LENGTH * 2), endIndex + (LENGTH * 2)));
             cells.add(cell.toString());
             cell.setLength(0);
-            beginIndex += 3;
-            endIndex += 3;
+            beginIndex += INC;
+            endIndex += INC;
         }
         return cells;
     }
+
+
 }

@@ -2,32 +2,32 @@ package com.kata.tdd;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BankOCR {
 
-    //A injecter avec un framework IoC
-    private BankOCRReader reader;
+    private final BankOCRParser parser;
 
-    public List<Integer> getAccountNumbersFrom(String file) {
-        List<Entry> entries = this.parseEntriesFrom(file);
-        List<Integer> accountNumbers = this.transform(entries);
-        return accountNumbers;
+    public BankOCR(BankOCRParser parser) {
+        this.parser = parser;
+    }
+
+    public List<Integer> getAccountNumbers() {
+        List<Entry> entries = parse();
+        return transform(entries);
+    }
+
+    private List<Entry> parse() {
+        return parser.execute();
     }
 
     private List<Integer> transform(List<Entry> entries) {
-        List<Integer> accountNumbers = new ArrayList<Integer>();
-        for (Entry entry : entries) {
-            accountNumbers.add(this.convert(entry));
-        }
-        return accountNumbers;
+        return  entries.stream()
+                .map(this::convert)
+                .collect(Collectors.toList());
     }
 
-    protected List<Entry> parseEntriesFrom(String file) {
-        reader = new BankOCRReader(file);
-        return reader.parseEntries();
-    }
-
-    protected Integer convert(Entry entry) {
+    protected int convert(Entry entry) {
         return entry.convert();
     }
 }

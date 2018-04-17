@@ -1,20 +1,8 @@
 package com.kata.tdd;
 
+import java.io.IOException;
 import java.util.List;
 
-public class BankOCRReader {
-
-    private String file;
-
-    public BankOCRReader(String file) {
-        this.file = file;
-    }
-
-    public List<Entry> parseEntries() {
-        throw new UnsupportedOperationException();
-    }
-
-    public void open(String file) {
-        throw new UnsupportedOperationException();
-    }
+public interface BankOCRReader {
+    List<String> readLinesFrom(String file) throws IOException;
 }

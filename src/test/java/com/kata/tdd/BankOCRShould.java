@@ -1,40 +1,41 @@
 package com.kata.tdd;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertThat;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class BankOCRShould {
 
-    public static final String A_DUMMY_FILE = "adummyfile.ocr";
+    @Mock
+    BankOCRParser parser;
+
+    @Mock
+    Entry entry = new Entry(
+                          "    _  _     _  _  _  _  _ "
+                        + "  | _| _||_||_ |_   ||_||_|"
+                        + "  ||_  _|  | _||_|  ||_| _|");
 
     @Test
-    public void transform_an_entry_into_an_account_number() {
-        TestableBankOCR bankOCR = new TestableBankOCR();
-        List<Integer> accountNumbers = bankOCR.getAccountNumbersFrom(A_DUMMY_FILE);
+    public void get_an_account_number_from_an_entry() {
+        BankOCR bankOCR = new BankOCR(parser);
+        List<Entry> entries = new ArrayList<Entry>();
+        entries.add(entry);
+
+        given(parser.execute()).willReturn(entries);
+        given(entry.convert()).willReturn(123456789);
+
+        List<Integer> accountNumbers = bankOCR.getAccountNumbers();
+
         assertThat(accountNumbers.get(0), is(123456789));
-    }
-
-    public class TestableBankOCR extends BankOCR {
-        protected List<Entry> parseEntriesFrom(String file) {
-            Entry entry = new Entry("    _  _     _  _  _  _  _ \n"
-                                  + "  | _| _||_||_ |_   ||_||_|\n"
-                                  + "  ||_  _|  | _||_|  ||_| _|\n"
-                                  + "                           ");
-            List<Entry> entries = new ArrayList<Entry>();
-
-            entries.add(entry);
-
-            return entries;
-        }
-
-        @Override
-        protected Integer convert(Entry entry) {
-            return 123456789;
-        }
     }
 }
