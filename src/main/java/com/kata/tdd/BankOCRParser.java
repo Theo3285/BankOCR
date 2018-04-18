@@ -1,6 +1,7 @@
 package com.kata.tdd;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -16,11 +17,11 @@ public class BankOCRParser {
     }
 
     List<Entry> execute() {
-        List<Entry> entries = Collections.EMPTY_LIST;
+        List<Entry> entries = new ArrayList<>();
         try {
             List<String> lines = reader.readLinesFrom(source);
             entries = buildEntriesFrom(lines);
-        } catch (IOException e) {
+        } catch (IOException | URISyntaxException e) {
             e.printStackTrace();
         }
         return entries;

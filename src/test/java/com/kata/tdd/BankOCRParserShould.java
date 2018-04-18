@@ -8,6 +8,7 @@ import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,7 +30,7 @@ public class BankOCRParserShould {
     private BankOCRParser parser = new BankOCRParser(reader, "");
 
     @Test
-    public void return_all_entries_from_read_lines() throws IOException {
+    public void return_all_entries_from_read_lines() throws IOException, URISyntaxException {
 
         List<String> lines = new ArrayList<String>(Arrays.asList(
                 new String(" _  _  _  _  _  _  _  _  _ "),

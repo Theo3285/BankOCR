@@ -27,7 +27,7 @@ public class BankOCR {
                 .collect(Collectors.toList());
     }
 
-    protected int convert(Entry entry) {
+    private int convert(Entry entry) {
         return entry.convert();
     }
 }

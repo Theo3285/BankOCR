@@ -1,24 +1,29 @@
 package com.kata.tdd;
 
-import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Stream;
 
-public class BankOCRResourceReader implements BankOCRReader{
+public class BankOCRResourceReader implements BankOCRReader {
 
-    public List<String> readLinesFrom(String file) throws IOException {
+    public List<String> readLinesFrom(String source) throws IOException, URISyntaxException {
         List<String> lines = new ArrayList<>();
-        Class clazz = BankOCRResourceReader.class;
-        InputStream inputStream = clazz.getResourceAsStream("/" + file);
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(inputStream))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                lines.add(line);
-            }
-        }
+
+        Path path = Paths.get(Objects
+                .requireNonNull(getClass()
+                        .getClassLoader()
+                        .getResource(source))
+                .toURI());
+        Stream<String> readLines = Files.lines(path);
+        readLines.forEach(lines::add);
+
         return lines;
     }
 }
